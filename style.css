@@ -1,0 +1,481 @@
+/* DAW2DAW styles: "Sticker Pop" in butter yellow and the plum range.
+   Phone first, one column. Music and studio-gear animations. */
+
+:root {
+  /* Butter yellow */
+  --butter: #FFF4C7;        /* page */
+  --butter-deep: #FFD84D;   /* highlights, keycaps on plum */
+  --butter-light: #FFF9E0;
+
+  /* The plum range, darkest to lightest */
+  --aubergine: #2A1230;     /* outlines and text */
+  --plum-deep: #4A1942;     /* the answer block, status display */
+  --plum: #7A2E68;          /* buttons, shadows */
+  --orchid: #B05FA0;        /* accents, playhead */
+  --mauve: #E3B5D8;         /* labels on dark plum */
+  --lilac: #F3E3F1;         /* the "I know" block */
+  --lilac-light: #FBF4FA;
+
+  --paper: #FFFFFF;
+  --muted: #6B4A6E;
+
+  --line: 2px solid var(--aubergine);
+  --pop: 3px 3px 0 var(--plum);
+  --pop-big: 6px 6px 0 var(--plum);
+  --bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --display: "Bricolage Grotesque", "Arial Rounded MT Bold", system-ui, sans-serif;
+  --mono: ui-monospace, Menlo, Consolas, monospace;
+
+  /* Background texture: faint staves, notes and a sound wave in plum. */
+  --texture: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='220' viewBox='0 0 280 220'%3E%3Cg fill='none' stroke='%237A2E68' stroke-opacity='0.11' stroke-width='1.2'%3E%3Cpath d='M0 30H280M0 38H280M0 46H280M0 54H280M0 62H280'/%3E%3Cpath d='M65 54V22M85 46V18M175 38V8'/%3E%3Cpath d='M0 150q10-16 20 0t20 0q6-28 12 0t12 0q4-10 8 0t8 0q10-22 20 0t20 0q8-12 16 0t16 0q6-30 12 0t12 0q10-16 20 0t20 0q10-8 20 0t20 0q8-20 16 0t16 0q6-10 12 0'/%3E%3C/g%3E%3Cg fill='%237A2E68' fill-opacity='0.11'%3E%3Cellipse cx='60' cy='54' rx='5.5' ry='3.8' transform='rotate(-20 60 54)'/%3E%3Cellipse cx='80' cy='46' rx='5.5' ry='3.8' transform='rotate(-20 80 46)'/%3E%3Cpath d='M65 22L85 18V22L65 26Z'/%3E%3Cellipse cx='170' cy='38' rx='5.5' ry='3.8' transform='rotate(-20 170 38)'/%3E%3Cellipse cx='230' cy='62' rx='5.5' ry='3.8' transform='rotate(-20 230 62)'/%3E%3Crect x='206' y='186' width='5' height='20' rx='2'/%3E%3Crect x='214' y='178' width='5' height='28' rx='2'/%3E%3Crect x='222' y='192' width='5' height='14' rx='2'/%3E%3Crect x='230' y='182' width='5' height='24' rx='2'/%3E%3C/g%3E%3Cpath d='M235 62V36' stroke='%237A2E68' stroke-opacity='0.11' stroke-width='1.2'/%3E%3C/svg%3E");
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--butter);
+  background-image: var(--texture);
+  background-size: 280px 220px;
+  color: var(--aubergine);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+.top, main, footer {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ---------- Header ---------- */
+.top {
+  padding-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+h1 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 2.75rem;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+/* The "2" is a little vinyl record. */
+h1 .two {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  color: var(--aubergine);
+  background:
+    radial-gradient(circle, var(--butter-deep) 0 38%, transparent 39%),
+    repeating-radial-gradient(circle, var(--plum-deep) 0 2px, var(--aubergine) 2px 4px);
+  border: var(--line);
+  box-shadow: 2px 2px 0 var(--orchid);
+  box-shadow: 3px 3px 0 var(--orchid);
+  transform: rotate(-12deg);
+  font-size: 1.6rem;
+  animation: drop-needle 1s var(--bounce) 0.2s both;
+  cursor: default;
+}
+h1 .two:hover { animation: scratch 0.6s ease-in-out; }
+.tagline {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 1.02rem;
+  font-weight: 500;
+}
+
+/* Beamed eighth notes that bob to a beat. */
+.notes { flex: none; width: 60px; height: 60px; overflow: visible; animation: bob 1.2s ease-in-out infinite; }
+.notes .beam { fill: var(--plum); stroke: var(--aubergine); stroke-width: 2; }
+.notes .stem { stroke: var(--aubergine); stroke-width: 2.4; }
+.notes .head { fill: var(--orchid); stroke: var(--aubergine); stroke-width: 2; }
+.notes .head:last-of-type { fill: var(--butter-deep); }
+
+/* ---------- Picker ---------- */
+.picker {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  margin-top: 20px;
+}
+.pick { flex: 1; min-width: 0; }
+.pick label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin-bottom: 6px;
+  color: var(--plum);
+}
+select {
+  width: 100%;
+  min-height: 50px;
+  padding: 0 10px;
+  font: 600 1rem Inter, system-ui, sans-serif;
+  color: var(--aubergine);
+  background: var(--paper);
+  border: var(--line);
+  border-radius: 14px;
+  box-shadow: var(--pop);
+  cursor: pointer;
+  transition: transform 0.15s var(--bounce), box-shadow 0.15s ease;
+}
+select:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--plum); }
+select.flip { animation: fader 0.5s var(--bounce); }
+
+/* Swap is a record: it scratches when tapped. */
+#swap {
+  flex: none;
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--aubergine);
+  background:
+    radial-gradient(circle, var(--butter-deep) 0 32%, transparent 33%),
+    repeating-radial-gradient(circle, var(--plum-deep) 0 2px, var(--aubergine) 2px 4px);
+  border: var(--line);
+  border-radius: 50%;
+  box-shadow: 3px 3px 0 var(--orchid);
+  cursor: pointer;
+  transition: transform 0.2s var(--bounce), box-shadow 0.15s ease;
+}
+#swap svg { width: 18px; height: 18px; }
+#swap:hover { transform: rotate(-25deg); }
+#swap:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--orchid); }
+#swap.spin { animation: scratch 0.6s ease-in-out; }
+
+/* ---------- Search ---------- */
+.search {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  margin: 0 -20px;
+  padding: 16px 20px 10px;
+  background: rgba(255, 244, 199, 0.86);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+.searchbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 54px;
+  padding: 0 16px 0 18px;
+  color: var(--plum);
+  background: var(--paper);
+  border: var(--line);
+  border-radius: 999px;
+  box-shadow: var(--pop);
+  transition: transform 0.2s var(--bounce), box-shadow 0.2s ease, background-color 0.2s ease;
+}
+.searchbox:focus-within {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 var(--plum);
+  background: var(--lilac-light);
+}
+.searchbox > svg { flex: none; }
+input[type="search"] {
+  flex: 1;
+  min-width: 0;
+  min-height: 48px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font: 500 1.05rem Inter, system-ui, sans-serif;
+  color: var(--aubergine);
+}
+input[type="search"]::placeholder { color: #8A6C8C; }
+
+/* Input level meter: jumps on every keystroke, like a mic level. */
+.meter {
+  flex: none;
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 22px;
+}
+.meter i {
+  display: block;
+  width: 4px;
+  height: 100%;
+  border-radius: 2px;
+  background: var(--mauve);
+  transform-origin: bottom;
+  transform: scaleY(0.2);
+}
+.meter i:nth-child(4) { background: var(--orchid); }
+.meter i:nth-child(5) { background: var(--plum); }
+.meter.hit i { animation: level 0.45s ease-out; }
+.meter.hit i:nth-child(1) { --peak: 0.55; }
+.meter.hit i:nth-child(2) { --peak: 0.9; animation-delay: 20ms; }
+.meter.hit i:nth-child(3) { --peak: 0.7; animation-delay: 40ms; }
+.meter.hit i:nth-child(4) { --peak: 1; animation-delay: 10ms; }
+.meter.hit i:nth-child(5) { --peak: 0.6; animation-delay: 30ms; }
+
+select:focus-visible, #swap:focus-visible {
+  outline: 3px solid var(--orchid);
+  outline-offset: 3px;
+}
+
+/* ---------- Status display (like a small LCD) ---------- */
+.statusline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0 16px;
+  min-height: 30px;
+}
+.status {
+  margin: 0;
+  font: 600 0.82rem var(--mono);
+  letter-spacing: 0.02em;
+  transform-origin: left center;
+}
+.status:not(:empty) {
+  padding: 5px 12px;
+  color: var(--butter-deep);
+  background: var(--plum-deep);
+  border-radius: 999px;
+  box-shadow: 2px 2px 0 var(--orchid);
+}
+.status.bump { animation: bump 0.35s var(--bounce); }
+
+.eq {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 20px;
+  padding: 0 2px;
+}
+.eq i {
+  display: block;
+  width: 5px;
+  height: 100%;
+  border-radius: 2px;
+  transform-origin: bottom;
+  transform: scaleY(0.35);
+  background: var(--plum);
+}
+.eq i:nth-child(2) { background: var(--orchid); }
+.eq i:nth-child(3) { background: var(--butter-deep); outline: 1.5px solid var(--aubergine); }
+.eq i:nth-child(4) { background: var(--mauve); }
+.eq.play i { animation: eq-bounce 0.7s ease-in-out 2; }
+.eq.play i:nth-child(2) { animation-delay: 0.12s; }
+.eq.play i:nth-child(3) { animation-delay: 0.05s; }
+.eq.play i:nth-child(4) { animation-delay: 0.18s; }
+
+/* ---------- Result cards ---------- */
+.card {
+  position: relative;
+  overflow: hidden;
+  background: var(--paper);
+  border: var(--line);
+  border-radius: 22px;
+  box-shadow: var(--pop-big);
+  padding: 16px;
+  margin-bottom: 22px;
+  transition: transform 0.2s var(--bounce), box-shadow 0.2s ease;
+}
+.card:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0 var(--plum); }
+/* New cards slide up like a fader, and a playhead sweeps across them. */
+.card.enter {
+  animation: fader-in 0.5s var(--bounce) both;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+.card.enter::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 3px;
+  background: var(--orchid);
+  box-shadow: 0 0 12px var(--orchid);
+  opacity: 0;
+  animation: playhead 0.9s ease-in-out both;
+  animation-delay: calc(var(--i, 0) * 70ms + 0.15s);
+  pointer-events: none;
+}
+.card h2 {
+  margin: 0 0 12px;
+  font-family: var(--display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.side { border-radius: 16px; padding: 12px; }
+.side.from { background: var(--lilac); }
+.side.to {
+  margin-top: 10px;
+  color: var(--butter-light);
+  background: var(--plum-deep);
+  border: var(--line);
+}
+.side.to.missing {
+  color: var(--aubergine);
+  background: var(--lilac-light);
+  border: 2px dashed var(--orchid);
+}
+
+.side-head {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.side.from .side-head { color: var(--plum); }
+.side.to .side-head { color: var(--mauve); }
+.side.to.missing .side-head { color: var(--plum); }
+
+.name {
+  margin: 2px 0 0;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+.side.from .name { font-size: 1rem; }
+.side.to .name {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 1.45rem;
+  line-height: 1.15;
+  color: var(--butter-deep);
+}
+.side.to.missing .name { font-size: 1.15rem; color: var(--plum); }
+
+.from-keys { margin: 4px 0 0; color: var(--muted); font: 600 0.85rem var(--mono); }
+
+.rows { margin: 10px 0 0; }
+.row {
+  display: flex;
+  gap: 10px;
+  padding: 8px 0;
+  border-top: 1px solid rgba(227, 181, 216, 0.3);
+}
+.side.to.missing .row { border-top-color: rgba(122, 46, 104, 0.2); }
+.row dt {
+  flex: none;
+  width: 78px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding-top: 2px;
+  color: var(--mauve);
+}
+.side.to.missing .row dt { color: var(--plum); }
+.row dd { margin: 0; flex: 1; min-width: 0; overflow-wrap: anywhere; font-size: 0.95rem; }
+
+kbd {
+  display: inline-block;
+  margin: 1px 0;
+  padding: 1px 8px;
+  font: 700 0.85rem var(--mono);
+  color: var(--aubergine);
+  background: var(--butter-deep);
+  border: var(--line);
+  border-radius: 8px;
+  box-shadow: 0 3px 0 var(--orchid);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+kbd:hover, kbd:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--orchid); }
+.side.to .none { color: var(--mauve); }
+.none { color: var(--muted); }
+
+.empty {
+  padding: 24px 16px;
+  text-align: center;
+  font-weight: 600;
+  background: var(--lilac-light);
+  border: 2px dashed var(--orchid);
+  border-radius: 22px;
+  animation: fader-in 0.4s var(--bounce) both;
+}
+
+footer {
+  padding-top: 8px;
+  padding-bottom: 32px;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Animations ---------- */
+@keyframes fader-in {
+  from { opacity: 0; transform: translateY(18px) scale(0.97); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes playhead {
+  0%   { left: 0; opacity: 0; }
+  10%  { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { left: 100%; opacity: 0; }
+}
+@keyframes fader {
+  0%   { transform: translateY(0); }
+  35%  { transform: translateY(5px); }
+  100% { transform: translateY(0); }
+}
+@keyframes scratch {
+  0%   { transform: rotate(0deg); }
+  35%  { transform: rotate(200deg); }
+  60%  { transform: rotate(140deg); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes drop-needle {
+  0%   { transform: rotate(-200deg) scale(0.6); opacity: 0; }
+  100% { transform: rotate(-12deg) scale(1); opacity: 1; }
+}
+@keyframes bob {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25%      { transform: translateY(-4px) rotate(-6deg); }
+  50%      { transform: translateY(0) rotate(0deg); }
+  75%      { transform: translateY(-2px) rotate(5deg); }
+}
+@keyframes level {
+  0%   { transform: scaleY(0.2); }
+  25%  { transform: scaleY(var(--peak, 0.8)); }
+  100% { transform: scaleY(0.2); }
+}
+@keyframes eq-bounce {
+  0%, 100% { transform: scaleY(0.35); }
+  30%      { transform: scaleY(1); }
+  60%      { transform: scaleY(0.55); }
+}
+@keyframes bump {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* People who turn off motion in their phone settings get a calm version. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
